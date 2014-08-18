@@ -39,4 +39,5 @@ Thumbs.db
 # And all the file types you're interested in.
 !*.cs
 !*.met
-!*.etc
+!Assets/UnityVS/*
+!Assets/UnityVS/Editor/*
