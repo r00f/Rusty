@@ -38,5 +38,4 @@ Thumbs.db
 !*/
 # And all the file types you're interested in.
 !*.cs
-!*.met
-!*.etc
+!*.js
