@@ -34,7 +34,7 @@ public class playerController : MonoBehaviour
 						Vector2 normalizedVelocity = transform.parent.rigidbody2D.velocity.normalized;
 
 						Vector2 controlVector = Mathf.Approximately (normalizedVelocity.sqrMagnitude, 0.0f) ? new Vector2 () : new Vector2 (normalizedVelocity.x + 0.05f, normalizedVelocity.y + 0.05f);
-						Debug.Log (controlVector.ToString ());
+						//Debug.Log (controlVector.ToString ());
 						animator.SetFloat ("velocityY", controlVector.y, dampTime90, Time.deltaTime);
 						animator.SetFloat ("velocityX", controlVector.x, dampTime90, Time.deltaTime);
 		
