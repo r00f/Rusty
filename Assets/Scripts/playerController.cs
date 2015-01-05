@@ -6,7 +6,7 @@ public class playerController : MonoBehaviour
         public float dampTime90 = .2f;
         private Animator animator;
         public bool diagonal;
-        private int speed;
+        public int speed;
         // Use this for initialization
         void Start ()
         {

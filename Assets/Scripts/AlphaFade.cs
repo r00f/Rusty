@@ -17,7 +17,7 @@ public class AlphaFade : MonoBehaviour
         
         void Start ()
         {
-                sprite = this.GetComponent<SpriteRenderer> ();
+                sprite = this.GetComponentInChildren<SpriteRenderer> ();
             
         }
         
