@@ -1,56 +1,44 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using Assets.Scripts;
 
-public class GameController : MonoBehaviour
-{
+public class GameController : MonoBehaviour {
+    private List<SpriteRenderer> all_walls;
+    public int bounds;
+    private int cogAmount;
+    public Text cogAmountText;
+    public int sortingLayerID;
+    public int sortingOrder;
+    public Object walls;
+    // Use this for initialization
+    private void Start() {
+        cogAmount = 0;
+        UpdateScore();
 
-		public Text cogAmountText;
-		private int cogAmount;
-		public Object walls;
-		public int sortingLayerID;
-		public int sortingOrder;
-		public int bounds;
+        GameObject[] objects = GameObject.FindGameObjectsWithTag(Tags.Wall);
+        all_walls = new List<SpriteRenderer>(objects.Length);
+        foreach (GameObject o in objects) {
+            all_walls.Add(o.GetComponent<SpriteRenderer>());
+        }
+    }
 
-		// Use this for initialization
-		void Start ()
-		{
-				cogAmount = 0;
-				UpdateScore ();
+    // Update is called once per frame
+    private void Update() {
+    }
 
-		}
-	
-		// Update is called once per frame
-		void Update ()
-		{
-	
-		}
+    private void LateUpdate() {
+        foreach (var wall in all_walls) {
+            wall.sortingOrder = (int) Camera.main.WorldToScreenPoint(wall.bounds.min).y*-1;
+        }
+    }
 
-		void LateUpdate ()
-		{	
+    private void UpdateScore() {
+        cogAmountText.text = "" + cogAmount;
+    }
 
-				GameObject[] walls;
-				walls = GameObject.FindGameObjectsWithTag ("Wall");
-
-				foreach (GameObject wall in walls) {
-						SpriteRenderer wallSprite;
-						wallSprite = wall.GetComponent<SpriteRenderer> ();
-						wallSprite.sortingOrder = (int)Camera.main.WorldToScreenPoint (wallSprite.bounds.min).y * -1;
-			
-				}
-
-
-
-		}
-
-		void UpdateScore ()
-		{
-				cogAmountText.text = "" + cogAmount;
-		}
-
-		public void AddCog (int newCogValue)
-		{
-				cogAmount += newCogValue;
-				UpdateScore ();
-		}
+    public void AddCog(int newCogValue) {
+        cogAmount += newCogValue;
+        UpdateScore();
+    }
 }

@@ -7,5 +7,6 @@ namespace Assets.Scripts {
     class Tags {
         public static String Weapon = "Weapon";
         public static String Player = "Player";
+        public static String Wall = "Wall";
     }
 }
