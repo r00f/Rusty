@@ -3,42 +3,89 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Assets.Scripts;
 
-public class GameController : MonoBehaviour {
-    private List<SpriteRenderer> all_walls;
-    public int bounds;
-    private int cogAmount;
-    public Text cogAmountText;
-    public int sortingLayerID;
-    public int sortingOrder;
-    public Object walls;
-    // Use this for initialization
-    private void Start() {
-        cogAmount = 0;
-        UpdateScore();
+public class GameController : MonoBehaviour
+{
 
-        GameObject[] objects = GameObject.FindGameObjectsWithTag(Tags.Wall);
-        all_walls = new List<SpriteRenderer>(objects.Length);
-        foreach (GameObject o in objects) {
-            all_walls.Add(o.GetComponent<SpriteRenderer>());
-        }
-    }
+		//Lists
+		private List<SpriteRenderer> all_walls;
+//		private List<SpriteRenderer> all_collectables;
+		private GameObject[] walls;
+		private GameObject[] collectables;
 
-    // Update is called once per frame
-    private void Update() {
-    }
+		//Cog Pickup
+		private int cogAmount;
+		public Text cogAmountText;
 
-    private void LateUpdate() {
-        foreach (var wall in all_walls) {
-            wall.sortingOrder = (int) Camera.main.WorldToScreenPoint(wall.bounds.min).y*-1;
-        }
-    }
+		//Sorting Order
+		public int bounds;
+		public int sortingLayerID;
+		public int sortingOrder;
 
-    private void UpdateScore() {
-        cogAmountText.text = "" + cogAmount;
-    }
+		//Alpha Fade
+		public float minimum = 0.3f;
+		public float maximum = 1f;
+		public float fadeOutSpeed = 7f;
+		public float fadeInSpeed = 5f;
+		public float wallAlpha;
+		private AlphaFade wallTrigger;
 
-    public void AddCog(int newCogValue) {
-        cogAmount += newCogValue;
-        UpdateScore();
-    }
+		// Use this for initialization
+		private void Start ()
+		{
+				cogAmount = 0;
+				UpdateScore ();
+
+				GameObject[] walls = GameObject.FindGameObjectsWithTag (Tags.Wall);
+				all_walls = new List<SpriteRenderer> (walls.Length);
+				foreach (GameObject w in walls) {
+						all_walls.Add (w.GetComponent<SpriteRenderer> ());
+				}
+
+				/*	GameObject[] collectables = GameObject.FindGameObjectsWithTag (Tags.Collectable);
+				all_collectables = new List<SpriteRenderer> (collectables.Length);
+				foreach (GameObject c in collectables) {
+						all_collectables.Add (c.GetComponent<SpriteRenderer> ());
+				}*/
+
+
+
+		}
+
+		private void LateUpdate ()
+		{
+
+				foreach (var wall in all_walls) {
+
+
+						if (wall != null) {
+								wall.sortingOrder = (int)Camera.main.WorldToScreenPoint (wall.bounds.min).y * -1;
+
+
+						}
+				}
+
+				/*foreach (var collectable in all_collectables) {
+			
+			
+			
+						collectable.sortingOrder = (int)Camera.main.WorldToScreenPoint (collectable.bounds.min).y * -1;
+			
+			
+			
+				}*/
+
+
+		}
+
+		private void UpdateScore ()
+		{		
+				//Debug.Log("hello" + Screen.height);
+				cogAmountText.text = "" + cogAmount;
+		}
+
+		public void AddCog (int newCogValue)
+		{
+				cogAmount += newCogValue;
+				UpdateScore ();
+		}
 }
