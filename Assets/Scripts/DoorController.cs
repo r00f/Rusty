@@ -2,75 +2,60 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class DoorController : MonoBehaviour
-{
-		private List<Animator> all_animators;
-		private DoorTrigger trigger;
-		private BoxCollider2D collision;
-		public bool opening;
-		public bool closing;
-		public bool broken;
-		public bool open;
-		private bool isTriggered;
-		static int openState = Animator.StringToHash ("Base Layer.Open");
-		private AnimatorStateInfo currentState;
+internal enum DoorState {
+    Opening,
+    Closing,
+    Open,
+    Broken,
+    Closed
+}
 
-		// Use this for initialization
-		void Start ()
-		{
-				
-				Animator[] animators = this.GetComponentsInChildren<Animator> ();
-				trigger = this.GetComponentInChildren<DoorTrigger> ();
-				broken = false;
-				all_animators = new List<Animator> (animators.Length);
-				collision = GetComponentInChildren<BoxCollider2D> ();
-				
+public class DoorController : MonoBehaviour {
+    private List<Animator> all_animators;
+    private DoorTrigger trigger;
+    private BoxCollider2D collision;
+    private bool isTriggered;
+    private static int openState = Animator.StringToHash("Base Layer.Open");
+    private AnimatorStateInfo currentState;
+
+    private DoorState currentDoorState = DoorState.Closed;
 
 
+    // Use this for initialization
+    private void Start() {
+        Animator[] animators = this.GetComponentsInChildren<Animator>();
+        trigger = this.GetComponentInChildren<DoorTrigger>();
+        all_animators = new List<Animator>(animators.Length);
+        collision = GetComponentInChildren<BoxCollider2D>();
 
-				foreach (Animator a in animators) {
-						all_animators.Add (a);
-				}
+        foreach (Animator a in animators) {
+            all_animators.Add(a);
+        }
+    }
 
-		}
-	
-		// Update is called once per frame
-		void Update ()
-		{		
+    // Update is called once per frame
+    private void Update() {
+        isTriggered = trigger.triggered;
 
-				
-				isTriggered = trigger.triggered;
+        if (currentDoorState == DoorState.Open) {
+            Destroy(this.collision);
+        }
 
-				if (opening) {
-						closing = false;
-						broken = false;
-				} else if (closing) {
-						opening = false;
-						broken = false;
-				}
-				if (open) {
-						Destroy (this.collision);
-				}
-
-
-				if (isTriggered) {
-						opening = true;
-				}
+        if (isTriggered) {
+            currentDoorState = DoorState.Opening;
+        }
 
 
-				foreach (var animator in all_animators) {
-						currentState = animator.GetCurrentAnimatorStateInfo (0);
+        foreach (var animator in all_animators) {
+            currentState = animator.GetCurrentAnimatorStateInfo(0);
 
-						if (currentState.nameHash == openState) {
-								open = true;
-						}
-						animator.SetBool ("Opening", opening);
-						animator.SetBool ("Closing", closing);
-						animator.SetBool ("Broken", broken);
-						animator.SetBool ("Open", open);
-
-				}
-		}
-
-
+            if (currentState.nameHash == openState) {
+                currentDoorState = DoorState.Open;
+            }
+            animator.SetBool("Opening", currentDoorState == DoorState.Opening);
+            animator.SetBool("Closing", currentDoorState == DoorState.Closing);
+            animator.SetBool("Broken", currentDoorState == DoorState.Broken);
+            animator.SetBool("Open", currentDoorState == DoorState.Open);
+        }
+    }
 }
