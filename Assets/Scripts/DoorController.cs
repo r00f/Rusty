@@ -11,8 +11,8 @@ public class DoorController : MonoBehaviour
 		public bool closing;
 		public bool broken;
 		public bool open;
-		private bool isTriggered;	
-		static int openState = Animator.StringToHash("Base Layer.Open");
+		private bool isTriggered;
+		static int openState = Animator.StringToHash ("Base Layer.Open");
 		private AnimatorStateInfo currentState;
 
 		// Use this for initialization
@@ -23,7 +23,7 @@ public class DoorController : MonoBehaviour
 				trigger = this.GetComponentInChildren<DoorTrigger> ();
 				broken = false;
 				all_animators = new List<Animator> (animators.Length);
-				collision = GetComponentInChildren<BoxCollider2D>();
+				collision = GetComponentInChildren<BoxCollider2D> ();
 				
 
 
@@ -49,7 +49,7 @@ public class DoorController : MonoBehaviour
 						broken = false;
 				}
 				if (open) {
-				Destroy (this.collision);
+						Destroy (this.collision);
 				}
 
 
@@ -59,11 +59,11 @@ public class DoorController : MonoBehaviour
 
 
 				foreach (var animator in all_animators) {
-						currentState = animator.GetCurrentAnimatorStateInfo(0);
+						currentState = animator.GetCurrentAnimatorStateInfo (0);
 
-			if (currentState.nameHash == openState) {
-				open = true;
-			}
+						if (currentState.nameHash == openState) {
+								open = true;
+						}
 						animator.SetBool ("Opening", opening);
 						animator.SetBool ("Closing", closing);
 						animator.SetBool ("Broken", broken);

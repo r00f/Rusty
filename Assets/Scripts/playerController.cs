@@ -50,60 +50,16 @@ public class playerController : MonoBehaviour
 						Vector2 normalizedVelocity = transform.parent.rigidbody2D.velocity.normalized;
 
 						Vector2 controlVector = Mathf.Approximately (normalizedVelocity.sqrMagnitude, 0.0f) ? new Vector2 () : new Vector2 (normalizedVelocity.x + 0.05f, normalizedVelocity.y + 0.05f);
-						//Debug.Log (controlVector.ToString ());
 						animator.SetFloat ("velocityY", controlVector.y, dampTime90, Time.deltaTime);
 						animator.SetFloat ("velocityX", controlVector.x, dampTime90, Time.deltaTime);
         
 				}
-//
+
 				if ((horizontal < 0 && vertical < 0) | (horizontal > 0 && vertical < 0) | (horizontal > 0 && vertical > 0) | (horizontal < 0 && vertical > 0)) {
 						diagonal = true;
 				} else {
 						diagonal = false;
 				}
-//
-//              if (diagonal == false) {
-//
-//                      if (vertical > 0) {
-//                              animator.SetFloat ("velocityY", 1, dampTime90, Time.deltaTime);
-//                              animator.SetFloat ("velocityX", 0, dampTime90, Time.deltaTime);
-//                              print ("north");
-//                      } else if (vertical < 0) {
-//                              animator.SetFloat ("velocityY", -1, dampTime90, Time.deltaTime);
-//                              animator.SetFloat ("velocityX", 0, dampTime90, Time.deltaTime);
-//                              print ("south");
-//                      } else if (horizontal > 0) {
-//                              animator.SetFloat ("velocityX", 1, dampTime90, Time.deltaTime);
-//                              animator.SetFloat ("velocityY", 0, dampTime90, Time.deltaTime);
-//                              print ("east");
-//                      } else if (horizontal < 0) {
-//                              animator.SetFloat ("velocityX", -1, dampTime90, Time.deltaTime);
-//                              animator.SetFloat ("velocityY", 0, dampTime90, Time.deltaTime);
-//                              print ("west");
-//                      }
-//              }
-//              if (diagonal == true) {
-//
-//                      if (horizontal < 0 && vertical < 0) {
-//                              animator.SetFloat ("velocityX", -.5f, dampTime90, Time.deltaTime);
-//                              animator.SetFloat ("velocityY", -.5f, dampTime90, Time.deltaTime);
-//                              print ("southwest");
-//                      } else if (horizontal > 0 && vertical < 0) {
-//                              animator.SetFloat ("velocityX", .5f, dampTime90, Time.deltaTime);
-//                              animator.SetFloat ("velocityY", -.5f, dampTime90, Time.deltaTime);
-//                              print ("southeast");
-//                      } else if (horizontal > 0 && vertical > 0) {
-//                              animator.SetFloat ("velocityX", .5f, dampTime90, Time.deltaTime);
-//                              animator.SetFloat ("velocityY", .5f, dampTime90, Time.deltaTime);
-//                              print ("northeast");
-//                      } else if (horizontal < 0 && vertical > 0) {
-//                              animator.SetFloat ("velocityX", -.5f, dampTime90, Time.deltaTime);
-//                              animator.SetFloat ("velocityY", .5f, dampTime90, Time.deltaTime);           
-//                              print ("nortwest");
-//                      }
-//              }
-//
-//
 
 		}
 }

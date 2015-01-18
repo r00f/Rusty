@@ -8,9 +8,6 @@ public class GameController : MonoBehaviour
 
 		//Lists
 		private List<SpriteRenderer> all_walls;
-//		private List<SpriteRenderer> all_collectables;
-		private GameObject[] walls;
-		private GameObject[] collectables;
 
 		//Cog Pickup
 		private int cogAmount;
@@ -20,14 +17,6 @@ public class GameController : MonoBehaviour
 		public int bounds;
 		public int sortingLayerID;
 		public int sortingOrder;
-
-		//Alpha Fade
-		public float minimum = 0.3f;
-		public float maximum = 1f;
-		public float fadeOutSpeed = 7f;
-		public float fadeInSpeed = 5f;
-		public float wallAlpha;
-		private AlphaFade wallTrigger;
 
 		// Use this for initialization
 		private void Start ()
@@ -40,14 +29,6 @@ public class GameController : MonoBehaviour
 				foreach (GameObject w in walls) {
 						all_walls.Add (w.GetComponent<SpriteRenderer> ());
 				}
-
-				/*	GameObject[] collectables = GameObject.FindGameObjectsWithTag (Tags.Collectable);
-				all_collectables = new List<SpriteRenderer> (collectables.Length);
-				foreach (GameObject c in collectables) {
-						all_collectables.Add (c.GetComponent<SpriteRenderer> ());
-				}*/
-
-
 
 		}
 
@@ -64,22 +45,10 @@ public class GameController : MonoBehaviour
 						}
 				}
 
-				/*foreach (var collectable in all_collectables) {
-			
-			
-			
-						collectable.sortingOrder = (int)Camera.main.WorldToScreenPoint (collectable.bounds.min).y * -1;
-			
-			
-			
-				}*/
-
-
 		}
 
 		private void UpdateScore ()
 		{		
-				//Debug.Log("hello" + Screen.height);
 				cogAmountText.text = "" + cogAmount;
 		}
 

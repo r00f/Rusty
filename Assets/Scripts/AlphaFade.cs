@@ -31,12 +31,9 @@ public class AlphaFade : MonoBehaviour
 				spriteAlpha = sprite.color.a;
 
 				if (behindwall == true) {
-                        
-						
 						sprite.color = new Color (1f, 1f, 1f, Mathf.SmoothStep (spriteAlpha, minimum, fadeOutSpeed * Time.deltaTime));
 
 				} else {
-						//sort.playerBehindWall = false;
 						sprite.color = new Color (1f, 1f, 1f, Mathf.SmoothStep (spriteAlpha, maximum, fadeInSpeed * Time.deltaTime));
 				}
 		}
