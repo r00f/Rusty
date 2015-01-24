@@ -19,11 +19,5 @@ public class movement : MonoBehaviour
 						rigidbody2D.velocity = movement * speed;
 				}
 
-
-//      if (Mathf.Approximately(moveHorizontal, 0.0f) && Mathf.Approximately(moveVertical, 0.0f)) {
-//          rigidbody2D.velocity = new Vector2();
-//      } else {
-
-//      }
         }
 }

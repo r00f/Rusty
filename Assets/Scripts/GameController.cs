@@ -9,6 +9,10 @@ public class GameController : MonoBehaviour
 		//Lists
 		private List<SpriteRenderer> all_walls;
 
+		//pause, menu
+		public bool paused;
+		private GameObject Menu;
+
 		//Cog Pickup
 		private int cogAmount;
 		public Text cogAmountText;
@@ -21,6 +25,12 @@ public class GameController : MonoBehaviour
 		// Use this for initialization
 		private void Start ()
 		{
+				paused = false;
+				Menu = GameObject.FindGameObjectWithTag ("Menu");
+				Menu.SetActive (false);
+				Time.timeScale = 1F;
+				Screen.showCursor = true;
+
 				cogAmount = 0;
 				UpdateScore ();
 
@@ -32,8 +42,32 @@ public class GameController : MonoBehaviour
 
 		}
 
+		void Update ()
+		{
+		
+				if (Input.GetButtonDown ("Cancel")) {
+						if (Time.timeScale == 1F) {
+				
+								Time.timeScale = 0F;
+								paused = true;
+				Screen.showCursor = true;
+				Menu.SetActive (true);
+						} else if (Time.timeScale == 0F) {
+		
+								Time.timeScale = 1F;
+								paused = false;
+				Screen.showCursor = false;
+				Menu.SetActive (false);
+						}
+			
+				}
+
+
+		}
+
 		private void LateUpdate ()
 		{
+
 
 				foreach (var wall in all_walls) {
 
